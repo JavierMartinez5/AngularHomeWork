@@ -1,0 +1,47 @@
+h1 {
+    text-align: center;
+}
+h3 {
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+}
+.container {
+    max-width: 75vw;
+    min-height: 100vh;
+    background-color: linen;
+    margin: 0 auto;
+    padding: 25px;
+}
+.time-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 1rem;
+    margin-top: 2rem;
+}
+.doc-container {
+    margin-top: 4rem;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 25px;
+    background-color: whitesmoke;
+}
+.btn {
+    padding: 0.4rem;
+    margin: 0rem 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+.btn.success {
+    background: green;
+}
+.btn.warning {
+    background: yellow;
+    color: #000;
+}
+.btn.danger {
+    background: red;
+}
