@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,7 @@ export class AppComponent {
   counter = 0;
   condition = false;
   sub: Subscription;
+  subWait: Subscription;
 
   onStartStopClick() {
     this.condition = !this.condition;
@@ -32,19 +33,40 @@ export class AppComponent {
   }
 
   onWaitClick() {
-    this.counter += 1;
-    console.log(this.counter);
+    // NEW REALIZATION
 
-    if (this.counter === 1) { // For better optomization (prevent execute multiple SetTimeout)
-      setTimeout(() => {
-        if (this.counter > 1) {
-          this.sub.unsubscribe();
-          this.condition = false;
-        } else {
-          this.counter = 0;
-        }
-      }, 300);
+    if (this.counter !== 0 && this.counter <= 300) {
+      console.log(this.counter);
+      this.sub.unsubscribe();
+      this.subWait.unsubscribe();
+      this.condition = false;
+      this.counter = 0;
     }
+
+    this.subWait = interval(1).subscribe(value => {
+      if (value === 300) {
+        this.subWait.unsubscribe();
+        this.counter = 0;
+      } else {
+        this.counter = value;
+      }
+    })
+
+    // OLD REALIZATION
+
+    // this.counter++; 
+    // console.log(this.counter);
+
+    // if (this.counter === 1) { // For better optomization (prevent execute multiple SetTimeout)
+    //   setTimeout(() => {
+    //     if (this.counter > 1) {
+    //       this.sub.unsubscribe();
+    //       this.condition = false;
+    //     } else {
+    //       this.counter = 0;
+    //     }
+    //   }, 300);
+    // }
   }
 
   onResetClick() {
